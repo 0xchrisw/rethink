@@ -63,8 +63,7 @@ class PDF:
       if hasattr(page, 'extract_text'):
         page_text = self.clean_text(page.extract_text())
         if len(str(page_text)) > min_text_length:
-          sentences = sent_tokenize(page_text)
-          if len(sentences):
+          if (sentences := sent_tokenize(page_text)) and len(sentences):
             parsed_pages[page_number] = sentences
     return parsed_pages
 
