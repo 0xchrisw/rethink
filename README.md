@@ -1,13 +1,15 @@
 
 
 # Installation
-## Windows
 
 ```
 python3 -m pip install venv
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -e .
+python3 -m venv venv
+# On Windows run the following command:
+# $ .\venv\Scripts\Activate.ps1
+. venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -e .
 
 rethink
 ```
