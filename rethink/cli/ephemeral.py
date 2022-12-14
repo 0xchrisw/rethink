@@ -1,32 +1,33 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
 
-# built-ins
 import json
+
 from pathlib import Path
 
-# transformers
-from transformers import TFAutoModelForMaskedLM
-
-# rethink
 import rethink.preprocessors as preprocessors
 
 
-model_checkpoint = "distilbert-base-uncased"
-model = TFAutoModelForMaskedLM.from_pretrained(model_checkpoint)
-
-pdf_path = "data/Elasticsearch - The Definitive Guide.pdf"
+pdf_path = "data/document.pdf"
 output_file = Path(pdf_path).parent / "parsed.json"
+train_file = Path(pdf_path).parent / "train.json"
 
 parsed_data = json.loads(output_file.read_text()) if output_file.exists() else None
-
-
 if not parsed_data:
     parsed_data = preprocessors.pdf2txt.PDF(pdf_path).result()
     output_file.write_text(json.dumps(parsed_data, indent=2))
 
-print(parsed_data)
-print(model.summary())
+
+text = [" ".join(parsed_data[key]) for key in list(parsed_data.keys())[:50]]
+train_file.write_text(json.dumps(text, indent=2))
+
+
+import textgenrnn
+
+textgen = textgenrnn.textgenrnn()
+textgen.train_from_file(str(train_file.as_posix()), num_epochs=1)
+textgen.generate()
+textgen.generate(3, temperature=1.0)
 
 
 def main():
