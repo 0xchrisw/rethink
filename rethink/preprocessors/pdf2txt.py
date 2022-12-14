@@ -38,7 +38,6 @@ class PDF:
     self.reader = pdfplumber.open(self.data)
     self.pages  = self.reader.pages
     self.parsed_pages = self.parse()
-    self.write_content(self.parsed_pages)
 
 
   def result(self):
@@ -76,9 +75,13 @@ class PDF:
     text = re.sub("[\.]{2,}", "", text)
     # Tokenize
     tokens = text.split("\n")
+    # Remove short words
+    for t in tokens:
+        if len(t) <= 3:
+            tokens.remove(t)
     # Strip extra whitespace & remove blank lines
     text = [line.strip() for line in tokens]
-    text = [line for line in tokens if line]
+    # text = [line for line in tokens if line]
     # Remove multiple spaces
     text = " ".join(text)
     return re.sub(' +', ' ', text)
