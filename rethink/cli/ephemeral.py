@@ -25,8 +25,8 @@ if not parsed_data:
     parsed_data = preprocessors.pdf2txt.PDF(pdf_path).result()
     output_file.write_text(json.dumps(parsed_data, indent=2))
 
-# print(parsed_data)
-# print(model.summary())
+print(parsed_data)
+print(model.summary())
 
 
 def main():
