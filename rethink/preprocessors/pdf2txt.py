@@ -45,10 +45,10 @@ class PDF:
     return self.parsed_pages
 
 
-  def write_content(self, content):
-    content_file = Path(self.path.parent / "parsed.json")
-    if content_file.exists(): content_file.unlink()
-    content_file.write_text(json.dumps(content))
+  # def write_content(self, content):
+  #   content_file = Path(self.path.parent / "parsed.json")
+  #   if content_file.exists(): content_file.unlink()
+  #   content_file.write_text(json.dumps(content))
 
 
   def parse(self):
