@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
 
+# built-ins
 import json
-
-
 from pathlib import Path
 
+# transformers
+from transformers import TFAutoModelForMaskedLM
+
+# rethink
 import rethink.preprocessors as preprocessors
+
+
+model_checkpoint = "distilbert-base-uncased"
+model = TFAutoModelForMaskedLM.from_pretrained(model_checkpoint)
+
+model.summary()
 
 
 def main():
