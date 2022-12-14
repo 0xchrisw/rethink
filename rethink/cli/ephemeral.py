@@ -18,7 +18,7 @@ if not parsed_data:
     output_file.write_text(json.dumps(parsed_data, indent=2))
 
 
-text = [" ".join(parsed_data[key]) for key in list(parsed_data.keys())[:50]]
+text = [" ".join(parsed_data[key]) for key in list(parsed_data.keys())[25:50]]
 train_file.write_text(json.dumps(text, indent=2))
 
 
@@ -26,8 +26,13 @@ import textgenrnn
 
 textgen = textgenrnn.textgenrnn()
 textgen.train_from_file(str(train_file.as_posix()), num_epochs=1)
+
+textgen.save('textgenrnn_weights.hdf5')
+# textgen.load('textgenrnn_weights.hdf5')
+
 textgen.generate()
 textgen.generate(3, temperature=1.0)
+# textgen.generate_to_file('output.txt', n=3, temperature=1.0)
 
 
 def main():
