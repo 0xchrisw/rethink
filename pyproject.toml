@@ -16,14 +16,14 @@ dependencies = [
     "nltk",
     "pdfplumber",
 
+    "transformers",
     "tensorflow-gpu",
-    "transformers"
 ]
 
 [project.optional-dependencies]
-cpu =[ "tensorflow" ]
+cpu = [ "tensorflow", ]
 
-gpu =[ "tensorflow-gpu" ]
+gpu = [ "tensorflow-gpu", ]
 
 
 [project.scripts]
